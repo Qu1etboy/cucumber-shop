@@ -1,3 +1,5 @@
+// Weerawong Vonggatunyu 6410406860
+
 package ku.shop;
 
 import io.cucumber.java.en.Given;
@@ -32,5 +34,16 @@ public class BuyStepdefs {
     public void total_should_be(double total) {
         assertEquals(total, order.getTotal());
     }
-}
 
+    @When("a product {string} got sold for {int} pieces")
+    public void a_product_got_sold_times(String name, int pieces) {
+        Product prod = catalog.getProduct(name);
+        prod.cutStock(pieces);
+    }
+
+    @Then("leftover stock of {string} should be {int}")
+    public void quantity_of_product_should_be(String name, int quantity) {
+        Product prod = catalog.getProduct(name);
+        assertEquals(quantity, prod.getStock());
+    }
+}
